@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Orlando 2026" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <title>Orlando 2026</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><strong>Orlando 2026</strong><small id="subtitle">Planejador da viagem</small></div>
+    <button id="installBtn" class="ghost" hidden>Instalar</button>
+  </header>
+  <main>
+    <nav class="tabs">
+      <button data-tab="today" class="active">Hoje</button>
+      <button data-tab="parks">Parques</button>
+      <button data-tab="reservations">Reservas</button>
+      <button data-tab="data">Dados</button>
+    </nav>
+
+    <section id="today" class="panel active">
+      <div class="card controls">
+        <label>Dia da viagem<select id="dateSelect"></select></label>
+      </div>
+      <div id="dayCard"></div>
+      <div id="parkSwitch" class="segmented" hidden></div>
+      <div class="today-actions">
+        <button id="nowBtn">O que fazer agora?</button>
+        <div id="progress" class="progress"></div>
+      </div>
+      <div id="nowSummary"></div>
+      <div id="strategyPanel"></div>
+      <div id="todayDonePanel"></div>
+      <div class="section-title"><h2>Todas as atrações do parque</h2></div>
+      <div id="recommendations" class="stack"></div>
+    </section>
+
+    <section id="parks" class="panel">
+      <div class="card controls two">
+        <label>Parque<select id="parkSelect"></select></label>
+        <label>Status<select id="statusFilter"><option value="all">Todos</option><option value="nao feito">Não feito</option><option value="reservado">Reservado</option><option value="feito">Feito</option><option value="pular">Pular</option></select></label>
+      </div>
+      <div class="park-tools">
+        <button id="parkStrategyToggle" class="secondary">Ver resumo do roteiro</button>
+      </div>
+      <div id="parkStrategyPanel"></div>
+      <input id="search" class="search" placeholder="Buscar atração..." />
+      <div id="donePanel"></div>
+      <div id="attractionList" class="stack"></div>
+    </section>
+
+    <section id="reservations" class="panel">
+      <div class="section-title"><h2>Lightning Lane / Single Pass / Express</h2></div>
+      <div id="reservationList" class="stack"></div>
+    </section>
+
+    <section id="data" class="panel">
+      <div class="card">
+        <h2>Modo offline</h2>
+        <p>Abra por HTTPS, instale na tela inicial e carregue uma vez online antes de usar no parque.</p>
+        <div id="offlineInfo" class="data-info"></div>
+      </div>
+      <div class="card">
+        <h2>Base do roteiro</h2>
+        <p>Atualize roteiro e atrações quando terminar a planilha. O app preserva status, reservas, horários e notas quando os IDs das atrações continuam iguais.</p>
+        <div id="baseInfo" class="data-info"></div>
+        <div class="actions">
+          <label class="button">Atualizar base<input id="baseInput" type="file" accept="application/json" hidden></label>
+          <button id="exportBaseBtn" class="secondary">Exportar base atual</button>
+          <button id="packagedBaseBtn" class="secondary">Usar base original</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Backup</h2>
+        <p>Exporte o progresso antes da viagem ou importe em outro celular.</p>
+        <div class="actions"><button id="exportBtn">Exportar JSON</button><label class="button secondary">Importar JSON<input id="importInput" type="file" accept="application/json" hidden></label><button id="resetBtn" class="danger">Limpar progresso</button></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="editDialog">
+    <form method="dialog" id="editForm">
+      <h2 id="editTitle"></h2>
+      <input type="hidden" id="editId" />
+      <label>Status<select id="editStatus"><option value="nao feito">Não feito</option><option value="reservado">Reservado</option><option value="feito">Feito</option><option value="pular">Pular</option></select></label>
+      <label>Tipo de reserva<select id="reservationKind"><option value="">Sem reserva</option><option>Lightning Lane Multi Pass</option><option>Lightning Lane Single Pass</option><option>Express Pass</option><option>Fila normal</option><option>Rider Switch</option></select></label>
+      <label>Horário<input id="reservationTime" type="time" /></label>
+      <label>Observações<textarea id="notes" rows="3"></textarea></label>
+      <div class="actions"><button value="cancel" class="secondary">Cancelar</button><button id="saveEdit" value="default">Salvar</button></div>
+    </form>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

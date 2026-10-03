@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-02",
+    "purpose": "Base local de estrategia para sugerir roteiro no app Orlando 2026 sem depender de internet no parque.",
+    "sourceDocument": "fontes-roteiro.docx",
+    "notes": [
+      "Esta base nao substitui as preferencias da familia em data.json.",
+      "As fontes web foram usadas para gerar resumos operacionais locais.",
+      "Regras de passes podem mudar; validar nos apps oficiais antes da viagem."
+    ]
+  },
+  "globalRules": {
+    "recommendationOrder": [
+      "Excluir atracoes com status feito ou pular.",
+      "Dar prioridade a reservas proximas e janelas de passe.",
+      "Preservar obrigatorias da familia com ranking menor ou igual a 1.8.",
+      "Usar a estrategia do parque para evitar deslocamentos ruins e filas do começo do dia.",
+      "Usar shows, encontros e lojas como encaixes de descanso, nao como primeira prioridade da manha."
+    ],
+    "disneyLightningLane": {
+      "multiPass": [
+        "Permite planejar ate 3 experiencias e janelas em um parque antes da visita.",
+        "Depois de usar a primeira selecao, ou quando a janela passar, procurar outra experiencia disponivel.",
+        "Com Park Hopper, selecoes adicionais podem ser em outro parque, sujeitas a disponibilidade."
+      ],
+      "singlePass": [
+        "Usado para atracoes de alta demanda que nao entram no Multi Pass.",
+        "Pode ter ate 2 Single Pass por dia, sujeito a disponibilidade."
+      ],
+      "appBehavior": [
+        "Se a atracao tem reserva nas proximas 2 horas, elevar muito a prioridade visual.",
+        "Se a atracao e Single Pass com horario reservado, tratar como ancora do roteiro.",
+        "Se a atracao e Multi Pass e ja foi usada, lembrar o usuario de buscar outra selecao no My Disney Experience."
+      ]
+    },
+    "universalExpress": {
+      "express": [
+        "Universal Express normalmente vale uma vez por atracao participante no dia.",
+        "Universal Express Unlimited permite repetir atracoes participantes varias vezes, mas nao vale para Epic Universe.",
+        "Express Now e comprado pelo app, no parque, para uma atracao e janela especificas quando houver disponibilidade."
+      ],
+      "appBehavior": [
+        "Com Express, priorizar experiencias sem Express ou muito concorridas primeiro.",
+        "Sem Express, priorizar Harry Potter, Hagrid ou atracoes de maior demanda cedo ou quando a fila cair.",
+        "Single Rider pode economizar tempo, mas pode separar o grupo."
+      ]
+    }
+  },
+  "parks": {
+    "Magic Kingdom": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-magic-kingdom/",
+        "https://disneyworld.disney.go.com/lightning-lane-passes/"
+      ],
+      "summary": "Chegar cedo e essencial. A rota muda conforme Early Entry e passes; para a familia, o app deve equilibrar Fantasyland/Tomorrowland cedo com reservas e obrigatorias.",
+      "arrivalStrategy": [
+        "Chegar antes da abertura, considerando tempo extra para estacionamento, seguranca, monorail ou barco.",
+        "Se houver Early Entry, considerar Seven Dwarfs Mine Train ou Peter Pan's Flight bem cedo.",
+        "Sem Early Entry, ainda vale chegar 30 a 40 minutos antes e atacar uma obrigatoria popular cedo."
+      ],
+      "areaFlow": [
+        "Fantasyland",
+        "Tomorrowland",
+        "Frontierland",
+        "Liberty Square",
+        "Adventureland",
+        "Main Street U.S.A."
+      ],
+      "timeBlocks": {
+        "morning": "Usar as primeiras horas para obrigatorias com maior fila, especialmente Fantasyland ou Tomorrowland.",
+        "midday": "Encaixar shows, refeicoes, lojas e atracoes com ar condicionado; usar Tiana se o calor e a fila fizerem sentido.",
+        "evening": "Voltar para fotos, cavalcades, fogos e atracoes que ficaram com fila menor."
+      },
+      "anchors": [
+        "Seven Dwarfs Mine Train",
+        "Peter Pan's Flight",
+        "TRON Lightcycle / Run",
+        "Tiana's Bayou Adventure",
+        "Big Thunder Mountain Railroad"
+      ],
+      "passStrategy": [
+        "Single Pass costuma ser relevante para Seven Dwarfs Mine Train e TRON.",
+        "No Multi Pass, escolher no maximo uma experiencia forte do primeiro grupo quando aplicavel.",
+        "Ajustar o roteiro ao horario real das reservas."
+      ]
+    },
+    "EPCOT": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-epcot/",
+        "https://disneyworld.disney.go.com/lightning-lane-passes/"
+      ],
+      "summary": "EPCOT mistura poucas atracoes muito disputadas com muitas experiencias de passeio, comida e festival. A estrategia deve proteger Guardians, Remy, Frozen e Test Track sem transformar o dia em corrida.",
+      "arrivalStrategy": [
+        "Definir cedo se a primeira prioridade e World Discovery, World Nature ou World Showcase.",
+        "Usar as primeiras horas para uma das atracoes com maior demanda.",
+        "Reservar tempo livre para festival, comida e caminhada no World Showcase."
+      ],
+      "areaFlow": [
+        "World Celebration",
+        "World Discovery",
+        "World Nature",
+        "World Showcase"
+      ],
+      "timeBlocks": {
+        "morning": "Fazer Spaceship Earth se estiver com fila baixa e seguir para as prioridades do dia.",
+        "midday": "Usar pavilhoes, refeicoes e experiencias internas para descanso.",
+        "evening": "World Showcase, comidas de festival e retorno para a Spaceship Earth iluminada."
+      },
+      "anchors": [
+        "Guardians of the Galaxy: Cosmic Rewind",
+        "Remy's Ratatouille Adventure",
+        "Frozen Ever After",
+        "Test Track",
+        "Soarin' Across America",
+        "Spaceship Earth"
+      ],
+      "passStrategy": [
+        "Single Pass costuma ser relevante para Guardians of the Galaxy.",
+        "No Multi Pass, tratar Frozen, Remy e Test Track como escolhas fortes do primeiro grupo.",
+        "Evitar gastar o melhor horario da manha com encontros ou fotos se ainda houver obrigatorias pendentes."
+      ]
+    },
+    "Hollywood Studios": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-disneys-hollywood-studios/",
+        "https://disneyworld.disney.go.com/lightning-lane-passes/"
+      ],
+      "summary": "Parque pequeno com muitas atracoes fortes. A recomendacao precisa ser flexivel e reagir a reservas, shows e filas de Toy Story, Star Wars e Sunset Boulevard.",
+      "arrivalStrategy": [
+        "Chegar bem cedo.",
+        "Escolher entre Sunset Boulevard ou Galaxy's Edge conforme prioridades da familia e reservas.",
+        "Deixar personagens da entrada para outro momento se houver atracoes concorridas pendentes."
+      ],
+      "areaFlow": [
+        "Sunset Boulevard",
+        "Toy Story Land",
+        "Star Wars: Galaxy's Edge",
+        "Animation Courtyard",
+        "Echo Lake",
+        "Hollywood Boulevard"
+      ],
+      "timeBlocks": {
+        "morning": "Priorizar Slinky Dog, Rise, Tower, Rock'n Roller ou Mickey & Minnie's conforme reservas.",
+        "midday": "Espalhar shows como descanso depois de filas longas.",
+        "evening": "Voltar para Galaxy's Edge ou Toy Story se as filas melhorarem."
+      },
+      "anchors": [
+        "Star Wars: Rise of the Resistance",
+        "Slinky Dog Dash",
+        "The Twilight Zone Tower of Terror",
+        "Mickey & Minnie's Runaway Railway",
+        "Toy Story Mania!"
+      ],
+      "passStrategy": [
+        "Single Pass costuma ser relevante para Rise of the Resistance.",
+        "No Multi Pass, Slinky Dog, Mickey & Minnie, Millennium Falcon e Rock'n Roller estao entre escolhas fortes.",
+        "Shows devem entrar como encaixe estrategico, nao como primeira acao se as filas cedo estiverem boas."
+      ]
+    },
+    "Animal Kingdom": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-disneys-animal-kingdom/",
+        "https://disneyworld.disney.go.com/lightning-lane-passes/"
+      ],
+      "summary": "Chegar cedo ajuda muito. Pandora e Safari definem o começo do dia; shows e trilhas devem ser encaixados respeitando horarios e deslocamentos.",
+      "arrivalStrategy": [
+        "Chegar bem cedo para tentar Flight of Passage antes da fila crescer.",
+        "Depois seguir para Africa e Kilimanjaro Safaris cedo, quando os animais tendem a estar mais ativos.",
+        "Se Pandora ja estiver lotada, inverter e monitorar para voltar no fim da tarde."
+      ],
+      "areaFlow": [
+        "Pandora",
+        "Africa",
+        "Asia",
+        "DinoLand U.S.A.",
+        "Discovery Island",
+        "Oasis"
+      ],
+      "timeBlocks": {
+        "morning": "Flight of Passage ou Safari, dependendo da chegada real e das filas.",
+        "midday": "Shows, trilhas e refeicao; evitar zigue-zague porque o parque confunde facil.",
+        "evening": "Voltar para Pandora se a fila cair ou repetir Safari se fizer sentido."
+      },
+      "anchors": [
+        "Avatar Flight of Passage",
+        "Kilimanjaro Safaris",
+        "Expedition Everest",
+        "Festival of the Lion King",
+        "Na'vi River Journey"
+      ],
+      "passStrategy": [
+        "Single Pass costuma ser relevante para Flight of Passage.",
+        "Multi Pass pode ajudar Safari, Everest, Na'vi e shows.",
+        "Shows precisam respeitar horario; se estiver perto da hora, elevar prioridade."
+      ]
+    },
+    "Universal Studios Florida": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-universal-studios/",
+        "https://www.universalorlando.com/web/en/us/tickets-packages/express-passes/"
+      ],
+      "summary": "Se for fazer Universal Studios e Islands no mesmo dia, Express ajuda muito. Sem Express, focar nas imperdiveis e usar app da Universal para decidir desvios.",
+      "arrivalStrategy": [
+        "Comecar cedo por Diagon Alley se Harry Potter for prioridade da familia.",
+        "Depois circular no sentido anti-horario, indo por New York e Production Central.",
+        "Com pouco tempo, focar em Gringotts, Hogwarts Express, Mummy, Transformers, Minions e E.T."
+      ],
+      "areaFlow": [
+        "The Wizarding World of Harry Potter - Diagon Alley",
+        "New York",
+        "Minion Land",
+        "Production Central",
+        "Hollywood",
+        "Springfield",
+        "World Expo"
+      ],
+      "timeBlocks": {
+        "morning": "Harry Potter ou outra obrigatoria de fila alta.",
+        "midday": "Ajustar por filas no app; usar shows, lojas e comida para descanso.",
+        "evening": "Revisitar Diagon Alley, fotos e Hogwarts Express se houver park-to-park."
+      },
+      "anchors": [
+        "Harry Potter and the Escape from Gringotts",
+        "Hogwarts Express",
+        "Revenge of the Mummy",
+        "TRANSFORMERS: The Ride 3D",
+        "E.T. Adventure",
+        "Despicable Me Minion Mayhem"
+      ],
+      "passStrategy": [
+        "Com Express, ainda priorizar Harry Potter e experiencias sem bom substituto.",
+        "Usar Single Rider apenas se o grupo aceitar se separar.",
+        "Hogwarts Express exige ingresso park-to-park."
+      ]
+    },
+    "Islands of Adventure": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-islands-of-adventure/",
+        "https://www.universalorlando.com/web/en/us/tickets-packages/express-passes/"
+      ],
+      "summary": "O efeito Harry Potter domina a estrategia. Chegar cedo e ir para Hogsmeade/Hagrid costuma ser a decisao mais importante, salvo se o app indicar fila ruim.",
+      "arrivalStrategy": [
+        "Chegar antes da abertura e caminhar para a direita em direcao a Hogsmeade.",
+        "Entrar na fila principal antes de explorar fotos e lojas.",
+        "Se chegar tarde, monitorar Hagrid e voltar quando a espera ficar menos ruim."
+      ],
+      "areaFlow": [
+        "The Wizarding World of Harry Potter - Hogsmeade",
+        "Jurassic Park",
+        "Skull Island",
+        "Toon Lagoon",
+        "Marvel Super Hero Island",
+        "Seuss Landing",
+        "Port of Entry"
+      ],
+      "timeBlocks": {
+        "morning": "Hagrid, Forbidden Journey ou VelociCoaster conforme perfil da familia.",
+        "midday": "Ajustar por calor e agua: Toon Lagoon e Jurassic fazem mais sentido se estiver quente.",
+        "evening": "Voltar para Hogsmeade, lojas e show noturno se houver."
+      },
+      "anchors": [
+        "Hagrid's Magical Creatures Motorbike Adventure",
+        "Harry Potter and the Forbidden Journey",
+        "Hogwarts Express",
+        "Jurassic World VelociCoaster",
+        "The Amazing Adventures of Spider-Man"
+      ],
+      "passStrategy": [
+        "Express nao cobre Hagrid; tratar Hagrid como ancora de fila normal.",
+        "Express ajuda no restante das participantes.",
+        "Single Rider pode economizar tempo, mas separa o grupo."
+      ]
+    },
+    "Epic Universe": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-epic-universe/",
+        "https://www.universalorlando.com/web/en/us/tickets-packages/express-passes/"
+      ],
+      "summary": "Parque novo pede flexibilidade. Evitar copiar a multidao para Harry Potter logo cedo pode economizar tempo; Isle of Berk ou Super Nintendo podem ser melhores pontos de partida.",
+      "arrivalStrategy": [
+        "Chegar 30 a 45 minutos antes do horario aplicavel.",
+        "Se nao for hospede Universal, normalmente considerar Isle of Berk cedo.",
+        "Se for hospede ou Super Nintendo ainda estiver viavel, avaliar Super Nintendo cedo.",
+        "Deixar Battle at the Ministry para uma janela mais aceitavel quando possivel."
+      ],
+      "areaFlow": [
+        "Isle of Berk",
+        "Super Nintendo World",
+        "Dark Universe",
+        "The Wizarding World of Harry Potter - Ministry of Magic",
+        "Celestial Park"
+      ],
+      "timeBlocks": {
+        "morning": "Usar a manha para areas que ainda nao estao saturadas pela multidao.",
+        "midday": "Checar clima e downtime; muitas atracoes podem fechar com chuva forte.",
+        "evening": "Voltar para Celestial Park e para a area de Harry Potter se a fila melhorar."
+      },
+      "anchors": [
+        "Harry Potter and the Battle at the Ministry",
+        "Hiccup's Wing Gliders",
+        "Mario Kart: Bowser's Challenge",
+        "Monsters Unchained",
+        "Stardust Racers"
+      ],
+      "passStrategy": [
+        "Universal Express existe para Epic, mas Unlimited nao.",
+        "Dragon Racer's Rally nao participa do Express.",
+        "Single Rider pode ajudar, mas nao deve ser assumido como sempre disponivel."
+      ]
+    },
+    "SeaWorld Orlando": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/roteiro-sea-world/",
+        "seaworld-orlando-atracoes-parque-principal.xlsx"
+      ],
+      "summary": "SeaWorld deve ser planejado em sentido anti-horário, cruzando montanhas-russas, aquários e shows conforme os horários do dia. A sugestão do roteiro favorece atrações fortes como Pipeline, Ice Breaker, Expedition Odyssey, Infinity Falls, Mako, Penguin Trek, Kraken, Journey to Atlantis e Manta, usando shows como âncoras de horário.",
+      "arrivalStrategy": [
+        "Checar no app oficial os horários de shows assim que chegar; eles mandam no desenho do dia.",
+        "Caminhar em sentido anti-horário, porque a fonte recomenda fugir do fluxo mais comum dos visitantes.",
+        "Começar por Pipeline/Ice Breaker ou pela área de Wild Arctic conforme filas e perfil do grupo.",
+        "Intercalar montanhas-russas fortes com aquários, habitats e shows para descansar."
+      ],
+      "areaFlow": [
+        "Pipeline / entrada do parque",
+        "Wild Arctic",
+        "Killer Whale Stadium",
+        "Infinity Falls",
+        "Shark Wreck Reef / Shark Encounter",
+        "Antarctica",
+        "Journey to Atlantis / Jewel of the Sea",
+        "Dolphin Theater",
+        "Manta / Manta Aquarium",
+        "Sesame Street Land"
+      ],
+      "timeBlocks": {
+        "morning": "Começar pelas atrações fortes ou novas antes das filas subirem: Pipeline, Ice Breaker, Expedition Odyssey ou Penguin Trek, ajustando por horário de show.",
+        "midday": "Usar shows, Shark Encounter, Manta Aquarium, habitats e refeições como respiro; deixar atrações que molham para o calor.",
+        "evening": "Voltar para Manta, Mako, Kraken ou shows sazonais/noturnos se o parque estiver aberto até tarde."
+      },
+      "anchors": [
+        "Pipeline: The Surf Coaster",
+        "Ice Breaker",
+        "Expedition Odyssey",
+        "Infinity Falls",
+        "Mako",
+        "Shark Encounter",
+        "Penguin Trek",
+        "Kraken",
+        "Journey to Atlantis",
+        "Dolphin Theater",
+        "Manta",
+        "Killer Whale Stadium"
+      ],
+      "passStrategy": [
+        "Quick Queue Unlimited ajuda na maioria das atrações participantes, mas a fonte destaca que Penguin Trek e Expedition Odyssey não entram no Quick Queue comum.",
+        "Para Penguin Trek e Expedition Odyssey, considerar apenas se houver combo/adicional específico de uma vez, e só se as filas justificarem.",
+        "Reserved Seating pode ser útil para shows principais; caso contrário, chegar com antecedência e ajustar o roteiro pelos horários.",
+        "Comprar extras no parque pode ser suficiente na maior parte do ano, depois de sentir o movimento real."
+      ],
+      "sourceFileCount": 32,
+      "sourceAssessment": [
+        "O roteiro do link organiza o parque mais por prioridade geral do que por lands rígidas.",
+        "O Excel acrescenta atrações oficiais, altura e observações; a sugestão do app usa o link para priorizar e o Excel para detalhes práticos."
+      ]
+    },
+    "LEGOLAND Florida": {
+      "sourceUrls": [
+        "https://www.vaipradisney.com/blog/legoland-florida-roteiro/",
+        "legoland-florida-atracoes-parque-principal.xlsx"
+      ],
+      "summary": "LEGOLAND não deve ser tratado como lista única de imperdíveis: o roteiro é segmentado por idade. A ordem sugerida segue o fluxo das áreas do parque, priorizando atrações fortes para crianças de 5 a 10 anos e encaixando áreas de pequenos, construção, shows e Miniland conforme o perfil da família.",
+      "arrivalStrategy": [
+        "Reservar o dia para LEGOLAND; a fonte desaconselha dividir com outro parque principal por causa da distância e do baixo aproveitamento.",
+        "Escolher prioridades pela idade das crianças antes de sair correndo para a primeira atração.",
+        "Para crianças de 5 a 10 anos, proteger atrações como Masters of Flight, The Dragon, Lost Kingdom Adventure, Driving School, LEGO NINJAGO e The Great LEGO Race.",
+        "Para crianças menores, encaixar DUPLO Valley, Safari Trek, Royal Joust, Merlin’s Challenge e Jr. Driving School sem forçar atrações de altura maior."
+      ],
+      "areaFlow": [
+        "The Beginning",
+        "Fun Town",
+        "Heartlake City",
+        "DUPLO Valley",
+        "THE LEGO MOVIE World",
+        "LEGO Kingdoms",
+        "Land of Adventure",
+        "LEGO City",
+        "Imagination Zone",
+        "LEGO Technic",
+        "Pirates' Cove",
+        "Cypress Gardens",
+        "MINILAND USA",
+        "LEGO NINJAGO World",
+        "LEGO Galaxy"
+      ],
+      "timeBlocks": {
+        "morning": "Seguir o fluxo inicial do parque e priorizar atrações de maior apelo/filas para a idade da família: LEGO Movie, The Dragon, Land of Adventure ou LEGO City.",
+        "midday": "Usar áreas indoor e atividades de construção como Imagination Zone, LEGO Ferrari Build & Race, NINJAGO e teatro 4D para reduzir cansaço.",
+        "evening": "Deixar Cypress Gardens, MINILAND USA, fotos e experiências mais tranquilas para o fim, se sobrar energia."
+      },
+      "anchors": [
+        "THE LEGO MOVIE Masters of Flight",
+        "Unikitty's Disco Drop",
+        "Battle of Bricksburg",
+        "The Dragon",
+        "Lost Kingdom Adventure",
+        "Coastersaurus",
+        "Rescue Academy",
+        "Driving School",
+        "Coast Guard Academy",
+        "Kid Power Towers",
+        "The Great LEGO Race",
+        "AQUAZONE Wave Racers",
+        "LEGO NINJAGO The Ride",
+        "Galacticoaster"
+      ],
+      "passStrategy": [
+        "Esta etapa não define fura-filas para LEGOLAND; a recomendação principal é por idade, altura e deslocamento entre áreas.",
+        "A fonte organiza o roteiro por grupos etários, então o app deve evitar vender uma atração como obrigatória para todos.",
+        "Atividades aquáticas e atrações que molham entram melhor em dias quentes ou como pausa planejada."
+      ],
+      "sourceFileCount": 39,
+      "sourceAssessment": [
+        "O link organiza LEGOLAND por áreas e por adequação para crianças pequenas, crianças de 5 a 10 anos e adultos.",
+        "O Excel complementa com atrações novas/atuais, como LEGO Galaxy e Galacticoaster, além de restrições oficiais."
+      ]
+    }
+  }
+}
