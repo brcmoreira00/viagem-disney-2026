@@ -30,12 +30,14 @@
       </div>
       <div id="dayCard"></div>
       <div id="parkSwitch" class="segmented" hidden></div>
+      <div id="todayMapSlot"></div>
       <div class="today-actions">
         <button id="nowBtn">O que fazer agora?</button>
         <div id="progress" class="progress"></div>
       </div>
       <div id="nowSummary"></div>
       <div id="strategyPanel"></div>
+      <div id="todayFilters" class="quick-filters" aria-label="Filtros rápidos da aba Hoje"></div>
       <div id="todayDonePanel"></div>
       <div class="section-title"><h2>Todas as atrações do parque</h2></div>
       <div id="recommendations" class="stack"></div>
@@ -48,6 +50,7 @@
       </div>
       <div class="park-tools">
         <button id="parkStrategyToggle" class="secondary">Ver resumo do roteiro</button>
+        <div id="parkMapSlot"></div>
       </div>
       <div id="parkStrategyPanel"></div>
       <input id="search" class="search" placeholder="Buscar atração..." />
@@ -57,6 +60,21 @@
 
     <section id="reservations" class="panel">
       <div class="section-title"><h2>Lightning Lane / Single Pass / Express</h2></div>
+      <div class="card ll-planner">
+        <div class="ll-head">
+          <div>
+            <span class="eyebrow">Planejamento Disney</span>
+            <h3>Reservas Lightning Lane</h3>
+          </div>
+          <span class="badge blue">Multi + Single</span>
+        </div>
+        <p>Use antes do dia do parque para decidir o que tentar reservar no My Disney Experience.</p>
+        <div class="controls two">
+          <label>Dia Disney<select id="llDateSelect"></select></label>
+          <label>Parque<select id="llParkSelect"></select></label>
+        </div>
+        <div id="llPlanner"></div>
+      </div>
       <div id="reservationList" class="stack"></div>
     </section>
 
@@ -65,6 +83,7 @@
         <h2>Modo offline</h2>
         <p>Abra por HTTPS, instale na tela inicial e carregue uma vez online antes de usar no parque.</p>
         <div id="offlineInfo" class="data-info"></div>
+        <div id="offlineChecklist" class="offline-checklist"></div>
       </div>
       <div class="card">
         <h2>Base do roteiro</h2>
@@ -96,6 +115,24 @@
     </form>
   </dialog>
 
+  <dialog id="mapDialog" class="map-dialog">
+    <div class="map-shell">
+      <div class="map-header">
+        <div>
+          <span class="eyebrow">Mapa do parque</span>
+          <strong id="mapTitle"></strong>
+        </div>
+        <button id="closeMapBtn" class="secondary">Fechar</button>
+      </div>
+      <div id="mapFrameWrap" class="map-frame-wrap"></div>
+      <div class="map-actions">
+        <a id="openMapLink" class="button secondary" target="_blank" rel="noopener">Abrir em tela cheia</a>
+      </div>
+    </div>
+  </dialog>
+
   <script src="app.js" type="module"></script>
+  <div id="nowDock" class="now-dock" hidden></div>
+  <div id="undoToast" class="undo-toast" hidden></div>
 </body>
 </html>
